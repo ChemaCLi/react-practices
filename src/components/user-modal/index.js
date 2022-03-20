@@ -40,7 +40,7 @@ export const UserModal = ({
       closeModal()
     } catch (e) {
       console.error(e)
-      throw e
+      throw e // propagate error to the onEditUser or onCreateUser callbacks
     } finally {
       setSaving(false)
     }
