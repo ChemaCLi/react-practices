@@ -16,6 +16,7 @@ export const UsersList = ({
 }) => {
   return (
     <List
+      locale={{ emptyText: "No hay usuarios" }}
       loading={loading}
       dataSource={users ?? []}
       renderItem={(user) =>
