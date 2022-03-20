@@ -40,7 +40,7 @@ export const UsersManagementPage = () => {
       <Button onClick={() => modalRef.current?.openModal()}>
         AGREGAR USUARIO
       </Button>
-      <div style={{ width: "100%" }}>
+      <div style={{ width: "70%", margin: "auto" }}>
         <UsersList
           users={users}
           loading={loading}
