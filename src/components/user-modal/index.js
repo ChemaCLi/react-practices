@@ -60,11 +60,13 @@ export const UserModal = ({
       visible={visible}
       onOk={handleOnOk}
       onCancel={closeModal}
+      cancelText="Cerrar"
+      okText={selectedItem ? "Guardar cambios" : "Crear usuario"}
       okButtonProps={{ disabled: disableControls }}
       cancelButtonProps={{ disabled: disableControls }}
       title={<ModalTitle
-          loading={loading}
-          selectedItem={selectedItem} />
+        loading={loading}
+        selectedItem={selectedItem} />
       }>
       <Form
         form={form}
