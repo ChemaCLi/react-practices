@@ -1,5 +1,5 @@
 import React from "react"
-import { List } from "antd"
+import { List, Button } from "antd"
 import { BigHead } from "@bigheads/core"
 import { getRandomBigheadOptions } from "../../utils"
 
@@ -19,20 +19,29 @@ export const UsersList = ({
       loading={loading}
       dataSource={users ?? []}
       renderItem={(user) =>
-        <div key={user.id}>
-          <span>
-            <BigHead
-              style={{ width: "80px", heigth: "80px" }}
-              {...getRandomBigheadOptions()} />
-            {user.name} - {user.email} -
-            <button onClick={() => onSelectItem && onSelectItem(user)}>
+        <List.Item
+          key={user.id}
+          actions={[
+            <Button
+              key="edit-btn"
+              type="link"
+              onClick={() => onSelectItem && onSelectItem(user)}>
               Editar
-            </button>
-            <button onClick={() => onDeleteItem && onDeleteItem(user.id)}>
+            </Button>,
+            <Button
+              key="delete-btn"
+              type="danger"
+              onClick={() => onDeleteItem && onDeleteItem(user.id)}>
               Eliminar
-            </button>
-          </span>
-        </div>
+            </Button>
+          ]}>
+          <List.Item.Meta
+            title={user.name}
+            description={user.email}
+            avatar={<BigHead
+              style={{ width: "50px", heigth: "50px" }}
+              {...getRandomBigheadOptions()} />} />
+        </List.Item>
       } />
   )
 }
