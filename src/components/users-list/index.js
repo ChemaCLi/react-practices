@@ -23,14 +23,16 @@ export const UsersList = ({
           key={user.id}
           actions={[
             <Button
-              key="edit-btn"
+              shape="round"
               type="link"
+              key="edit-btn"
               onClick={() => onSelectItem && onSelectItem(user)}>
               Editar
             </Button>,
             <Button
-              key="delete-btn"
+              shape="round"
               type="danger"
+              key="delete-btn"
               onClick={() => onDeleteItem && onDeleteItem(user.id)}>
               Eliminar
             </Button>
