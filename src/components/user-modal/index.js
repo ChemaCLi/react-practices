@@ -1,5 +1,6 @@
 import { Modal, Form, Input } from "antd"
 import { useEffect, useState } from "react"
+import { useServiceLayer, useService } from "../../hooks"
 
 export const UserModal = ({
   visible,
@@ -9,10 +10,21 @@ export const UserModal = ({
   selectedItem = null,
   ...props
 }) => {
-  const [loading] = useState(false)
+  const { UserService } = useServiceLayer()
   const [saving, setSaving] = useState(false)
-
   const [form] = Form.useForm()
+
+  const { data: user, loading, reset } = useService(
+    UserService.getById,
+    { id: selectedItem?.id },
+    { shouldFetch: selectedItem?.id && visible}
+  )
+
+  useEffect(() => {
+    if (user && !loading && visible) {
+      return form.setFieldsValue({ ...user })
+    }
+  }, [form, user, visible, loading])
 
   const handleOnOk = async () => {
     setSaving(true)
@@ -25,7 +37,7 @@ export const UserModal = ({
       else
         onCreateUser && await onCreateUser({ name, email })
 
-      handleOnCancel()
+      closeModal()
     } catch (e) {
       console.error(e)
       throw e
@@ -34,20 +46,17 @@ export const UserModal = ({
     }
   }
 
-  const handleOnCancel = () => {
+  const closeModal = () => {
     form.resetFields()
     onCancel && onCancel()
+    reset()
   }
-
-  useEffect(() => {
-    if (selectedItem) return form.setFieldsValue(selectedItem)
-  }, [selectedItem, form])
 
   return (
     <Modal
       visible={visible}
       onOk={handleOnOk}
-      onCancel={handleOnCancel}
+      onCancel={closeModal}
       okButtonProps={{ disabled: (saving || loading) }}
       cancelButtonProps={{ disabled: (saving || loading) }}
       title={selectedItem ? "Editar usuario" : "Crear usuario"}
