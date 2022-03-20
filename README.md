@@ -10,6 +10,8 @@ Hi. These are some good practices I'm collecting for common scenarios we face to
 yarn install
 yarn start
 ```
+## Live preview
+https://react-practices-eight.vercel.app/
 
 ## Key takeaways
 - 🤝 Keep the persistance responsibility at `services` layer to **avoid coupling to a technology** (axios, apollo, SDKs, etc.)
