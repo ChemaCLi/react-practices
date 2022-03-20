@@ -33,6 +33,8 @@ export const useUserActions = ({ UserService }) => {
 
   const onDeleteUser = async ({ id, onCompleted }) => {
     Modal.confirm({
+      okText: "Sí",
+      cancelText: "No",
       title: "¿Estás seguro de eliminar este usuario?",
       onOk: async () => {
         try {
