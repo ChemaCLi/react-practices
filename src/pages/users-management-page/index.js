@@ -1,8 +1,9 @@
 import { Button } from "antd"
 import { useRef } from "react"
 import { ImperativeModal } from "../../contexts"
-import { UserModal, UsersList } from "../../components"
+import { UserModal, UsersList, ContentContainer } from "../../components"
 import { useService, useUserActions, useServiceLayer } from "../../hooks"
+import { UserAddOutlined } from '@ant-design/icons';
 
 export const UsersManagementPage = () => {
   const modalRef = useRef()
@@ -37,16 +38,21 @@ export const UsersManagementPage = () => {
           onCreateUser: handleOnCreateUser,
           onEditUser: handleOnEditUser
         }} />
-      <Button onClick={() => modalRef.current?.openModal()}>
-        AGREGAR USUARIO
-      </Button>
-      <div style={{ width: "70%", margin: "auto" }}>
+      <ContentContainer>
+        <Button
+          block
+          shape="round"
+          type="primary"
+          icon={<UserAddOutlined />}
+          onClick={() => modalRef.current?.openModal()}>
+          Agregar usuario
+        </Button>
         <UsersList
           users={users}
           loading={loading}
           onSelectItem={user => modalRef.current?.openModal(user)}
           onDeleteItem={id => handleOnDeleteUser({ id })} />
-      </div>
+      </ContentContainer>
     </>
   )
 }
