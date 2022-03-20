@@ -29,6 +29,12 @@ const getData = async (entity) => {
   return JSON.parse(localStorage.getItem(entity))
 }
 
+const getFullItemById = async (entity, id) => {
+  const items = await getData(entity) ?? []
+  const item = items.find((i) => i.id === id)
+  return item
+}
+
 const removeItemById = async (entity, id) => {
   const items = await getData(entity) ?? []
   const idx = items.findIndex((i) => i.id === id)
@@ -41,8 +47,9 @@ const removeItemById = async (entity, id) => {
 }
 
 export const LocalPersistanceService = {
-  saveData,
   getData,
-  removeItemById
+  saveData,
+  removeItemById,
+  getFullItemById
 }
 
