@@ -1,5 +1,5 @@
 # React Advises
-Hi. These are some good practices I'm collecting for common scenarios we face to while building apps. I'll be updating them to improve them. Please read the takeaways and check out the code. Any feedback is welcome.
+Hi. These are some good practices I'm collecting for common scenarios we face to while building apps. I'll be updating the code to improve it little by little. Please read the takeaways and check out the code. Any feedback is welcome.
 
 ## Stack
 - ⚛️ React
