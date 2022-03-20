@@ -1,4 +1,4 @@
-import { Modal, Form, Input } from "antd"
+import { Modal, Form, Input, Typography } from "antd"
 import { useEffect, useState } from "react"
 import { useServiceLayer, useService } from "../../hooks"
 
@@ -52,15 +52,20 @@ export const UserModal = ({
     reset()
   }
 
+  const disableControls = saving || (selectedItem?.id && loading)
+
   return (
     <Modal
+      {...props}
       visible={visible}
       onOk={handleOnOk}
       onCancel={closeModal}
-      okButtonProps={{ disabled: (saving || loading) }}
-      cancelButtonProps={{ disabled: (saving || loading) }}
-      title={selectedItem ? "Editar usuario" : "Crear usuario"}
-      {...props}>
+      okButtonProps={{ disabled: disableControls }}
+      cancelButtonProps={{ disabled: disableControls }}
+      title={<ModalTitle
+          loading={loading}
+          selectedItem={selectedItem} />
+      }>
       <Form
         form={form}
         layout="vertical">
@@ -68,15 +73,39 @@ export const UserModal = ({
           rules={[{ required: true }]}
           label="Nombre"
           name="name">
-          <Input placeholder="Nombre" />
+          <Input
+            disabled={disableControls}
+            placeholder="Nombre" />
         </Form.Item>
         <Form.Item
           rules={[{ required: true }]}
           label="Email"
           name="email">
-          <Input placeholder="Email" />
+          <Input
+            disabled={disableControls}
+            placeholder="Email" />
         </Form.Item>
       </Form>
     </Modal>
   )
 }
+
+const ModalTitle = ({ selectedItem, loading }) => (
+  <div style={{
+    display: "flex",
+    flexDirection: "row",
+    gap: 20,
+    alignItems: "center"
+  }}>
+    <div>
+      {selectedItem ? "Editar usuario" : "Crear usuario"}
+    </div>
+    {(loading && selectedItem) && (
+      <Typography.Text
+        type="secondary"
+        style={{ fontSize: "0.75rem" }}>
+        cargando...
+      </Typography.Text>
+    )}
+  </div>
+)
