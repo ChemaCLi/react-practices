@@ -55,5 +55,13 @@ export function useService(
     }
   }, [suspense]);
 
-  return { ...state, refetch: performQuery };
+  const reset = () => {
+    setState({
+      loading: true,
+      data: null,
+      error: null
+    })
+  };
+
+  return { ...state, refetch: performQuery, reset };
 }
